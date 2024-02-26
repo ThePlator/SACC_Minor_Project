@@ -23,7 +23,7 @@ function StudentList() {
       <table>
         <thead>
           <tr>
-            <th>Serial Number</th>
+            <th>S.No</th>
             <th>Name</th>
             <th>Registration Number</th>
             <th>View Details</th>
