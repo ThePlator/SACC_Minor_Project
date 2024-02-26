@@ -1,38 +1,52 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+// StudentDetails.js
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FaFilePdf, FaLinkedin } from "react-icons/fa";
+import axios from 'axios';
 
-const StudentDetails = ({ data }) => {
-  const { studentId } = useParams();
-  const student = data.find((student) => student.id === parseInt(studentId));
+function StudentDetails() {
+  const { id } = useParams();
+  const [student, setStudent] = useState(null);
 
-  if (!student) return <div>Student not found</div>;
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_APP_API}/students/${id}`)
+      .then(response => {
+        setStudent(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching student details:', error);
+      });
+  }, [id]);
+
+  if (!student) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="card">
+     <div className="card">
       <h1>Student Details</h1>
-      <p>Name: {student.name}</p>
-      <p>Email: {student.email || "N/A"}</p>
-      <p>Department: {student.department || "N/A"}</p>
-      <p>Registration Number: {student.registration_number || "N/A"}</p>
-      <p>Internship place: {student.internship_place || "N/A"}</p>
+      <p>Name: {student.Name}</p>
+      <p>Email: {student.Username || "N/A"}</p>
+      <p>Department: {student.Department || "N/A"}</p>
+      <p>Registration Number: {student['Registration Number']}</p>
+      <p>Internship place: {student['Internship organization'] || "N/A"}</p>
       <p>
         Matriculation passing year:{" "}
-        {student.matriculation_passing_year || "N/A"}
+        {student['Matriculation Passing Year'] || "N/A"}
       </p>
       <p>
-        Matriculation percentage: {student.matriculation_percentage || "N/A"}
+        Matriculation percentage: {student['Percentage/CGPA in Matriculation'] || "N/A"}
       </p>
-      <p>Matriculation board : {student.matriculation_board || "N/A"}</p>
+      <p>Matriculation board : {student['Name of Matriculation Board'] || "N/A"}</p>
       <p>
-        Intermediate passing year: {student.intermediate_passing_year || "N/A"}
+        Intermediate passing year: {student['Intermediate/Diploma Passing Year'] || "N/A"}
       </p>
-      <p>Intermediate percentage: {student.intermediate_percentage || "N/A"}</p>
-      <p>Intermediate board: {student.intermediate_board || "N/A"}</p>
+      <p>Intermediate percentage/CGPA of Diploma: {student.Intermediate_Percentage || "N/A"}</p>
+      <p>Intermediate board/Diploma College: {student['Name of Intermediate Board/Diploma College'] || "N/A"}</p>
       <div className="flex gap-1">
-        {student.resume_link && (
+        {student.Resume && (
           <a
-            href={student.resume_link}
+            href={student.Resume}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -41,9 +55,9 @@ const StudentDetails = ({ data }) => {
             </button>
           </a>
         )}
-        {student.linkedin_profile && (
+        {student['Linkedin Profile Link'] && (
           <a
-            href={student.linkedin_profile}
+            href={student['Linkedin Profile Link']}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -55,6 +69,6 @@ const StudentDetails = ({ data }) => {
       </div>
     </div>
   );
-};
+}
 
 export default StudentDetails;

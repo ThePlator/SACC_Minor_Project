@@ -1,26 +1,22 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-// const Students = ({ data }) => {
-//   return (
-//     <div>
-//       <h1>List of Students</h1>
-//       <ul>
-//         {data.map((student) => (
-//           <li key={student.id}>
-//             <Link to={`/student/${student.id}`}>{student.name}</Link>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
+function StudentList() {
+  const [students, setStudents] = useState([]);
 
-// export default Students;
+  useEffect(() => {
+    // Fetch data from the backend API
+    axios.get(`${import.meta.env.VITE_APP_API}/students`)
+      .then(response => {
+        // Sort the students array by registration number before updating state
+        const sortedStudents = response.data.data.sort((a, b) => a['Registration Number'] - b['Registration Number']);
+        setStudents(sortedStudents);
+      })
+      .catch(error => {
+        console.error('Error fetching students:', error);
+      });
+  }, []); // Empty dependency array to fetch data only once when component mounts
 
-import React from "react";
-
-const Students = ({ data }) => {
   return (
     <div>
       <h1>List of Students</h1>
@@ -34,13 +30,13 @@ const Students = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((student, index) => (
-            <tr key={student.id}>
+          {students.map((student, index) => (
+            <tr key={student._id}>
               <td>{index + 1}</td>
-              <td>{student.name}</td>
-              <td>{student.registration_number}</td>
+              <td>{student.Name}</td>
+              <td>{student['Registration Number']}</td>
               <td>
-                <a href={`/student/${student.id}`}>View</a>
+                <a href={`/students/${student._id}`}>View</a>
               </td>
             </tr>
           ))}
@@ -48,6 +44,6 @@ const Students = ({ data }) => {
       </table>
     </div>
   );
-};
+}
 
-export default Students;
+export default StudentList;

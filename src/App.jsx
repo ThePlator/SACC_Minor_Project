@@ -1,21 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Students from './components/Students';
-import StudentDetails from './components/StudentDetails';
-import studentData from './utils/studentData.json';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import StudentList from './components/Students'; // Import StudentList component
+import StudentDetails from './components/StudentDetails'; // Import StudentDetails component
 
-const sortedStudentData = studentData.sort((a, b) => a.name.localeCompare(b.name));
-
-
-const App = () => {
+function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Students data={sortedStudentData} />} />
-        <Route path="/student/:studentId" element={<StudentDetails data={studentData} />} />
+        <Route path="/" element={<StudentList />} />
+        <Route path="/students/:id" element={<StudentDetails />} />
+        {/* Add other routes if needed */}
       </Routes>
     </Router>
   );
-};
+}
 
 export default App;
