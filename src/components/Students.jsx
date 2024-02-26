@@ -23,18 +23,18 @@ function StudentList() {
       <table>
         <thead>
           <tr>
-            <th>S.No</th>
-            <th>Name</th>
+            {/* <th>S.No</th> */}
             <th>Registration Number</th>
+            <th>Name</th>
             <th>View Details</th>
           </tr>
         </thead>
         <tbody>
           {students.map((student, index) => (
             <tr key={student._id}>
-              <td>{index + 1}</td>
-              <td>{student.Name}</td>
+              {/* <td>{index + 1}</td> */}
               <td>{student['Registration Number']}</td>
+              <td>{student.Name}</td>
               <td>
                 <a href={`/students/${student._id}`}>View</a>
               </td>
