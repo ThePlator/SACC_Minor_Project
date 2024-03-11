@@ -19,24 +19,24 @@ function StudentList() {
 
   return (
     <div>
-      <h1>List of Students</h1>
-      <table>
+      <h1 className='text-center text-3xl font-semibold bg-blue-700 text-white shadow-md sticky top-0'>List of Students</h1>
+      <table className='w-full border-collapse mt-9'>
         <thead>
           <tr>
             {/* <th>S.No</th> */}
-            <th>Registration Number</th>
-            <th>Name</th>
-            <th>View Details</th>
+            <th className='bg-gray-200 border border-gray-300 px-8 py-5 text-left'>Registration Number</th>
+            <th className='bg-gray-200 border border-gray-300 px-8 py-5 text-left'>Name</th>
+            <th className='bg-gray-200 border border-gray-300 px-8 py-5 text-left'>View Details</th>
           </tr>
         </thead>
         <tbody>
           {students.map((student, index) => (
             <tr key={student._id}>
               {/* <td>{index + 1}</td> */}
-              <td>{student['Registration Number']}</td>
-              <td>{student.Name}</td>
-              <td>
-                <a href={`/students/${student._id}`}>View</a>
+              <td className='border border-gray-300 px-8 py-5 text-left'>{student['Registration Number']}</td>
+              <td className='border border-gray-300 px-8 py-5 text-left'>{student.Name}</td>
+              <td className='border border-gray-300 px-8 py-5 text-left'>
+                <a className='text-blue-500 hover:underline' href={`/students/${student._id}`}>View</a>
               </td>
             </tr>
           ))}
