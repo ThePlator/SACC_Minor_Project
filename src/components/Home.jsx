@@ -6,7 +6,7 @@ const navigation = [
   { name: 'About College', href: '#' },
   { name: 'Features', href: '#' },
   { name: 'Student List', href: '/studentList' },
-  { name: 'Honor List', href: '/achievement' },
+  { name: 'Achievements', href: '/achievement' },
 ]
 
 export default function Home() {
